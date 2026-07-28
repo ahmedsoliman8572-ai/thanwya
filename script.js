@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const seatPrefix = Math.floor(parseInt(query) / 20000);
             const folderName = Math.floor(seatPrefix / 10);
             
-            const response = await fetch(`api_data/${folderName}/${seatPrefix}.json`);
+            const response = await fetch(`${folderName}/${seatPrefix}.json`);
             
             if (!response.ok) {
                 loading.classList.add('hidden');
