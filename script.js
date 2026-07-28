@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalDegree = document.getElementById('totalDegree');
     const studentStatus = document.getElementById('studentStatus');
     const scoreProgress = document.getElementById('scoreProgress');
+    const scorePercentage = document.getElementById('scorePercentage');
 
     function showError(msg) {
         errorMessage.textContent = msg;
@@ -108,11 +109,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const percentage = Math.min((degree / maxScore) * 100, 100);
             
             scoreProgress.style.width = '0%';
+            scorePercentage.textContent = '0%';
             setTimeout(() => {
                 scoreProgress.style.width = `${percentage}%`;
+                
+                // Animate percentage number
+                let current = 0;
+                const duration = 1500; // ms to match css transition
+                const interval = 30; // update every 30ms
+                const step = percentage / (duration / interval);
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= percentage) {
+                        current = percentage;
+                        clearInterval(timer);
+                    }
+                    scorePercentage.textContent = current.toFixed(1) + '%';
+                }, interval);
+                
             }, 100);
         } else {
             scoreProgress.style.width = '0%';
+            scorePercentage.textContent = '0%';
         }
     }
 
